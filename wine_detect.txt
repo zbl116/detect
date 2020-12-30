@@ -24,3 +24,7 @@ module+exports->AddressOfFunctions->funcs->func_base
  wine-preloader加载(加载所需的dll和共享库，完成代码的重定位)--->检测wineserver是否运行，没有就启动---->利用socket建立连接(wine/dlls/ntdll/server.c)---->wineserver建立运行一个socket套接字，
  等待客户端连接，客户端开始连接--->调用create_process建立一个虚拟的windows进程，作为整个wine的主进程(相当于linux的init进程)
  ----->然后它创建一个pipe管道，作为客户端和wineserver通信的工具---->然后wineserver进入main_loop()函数---->main_loop主要轮询各个poll队列，去读客户端的请求，并执行相应的服务
+
+
+内存dump点
+在relay_trace_entry函数，在调用函数api的地方 按照调用api的值，通过系统的/proc/pid_nums/maps中的内存分布，将VirtualAlloc和VirtualFree的点，通过gdb attach +地址起始，将内存dump出来
