@@ -1,0 +1,26 @@
+                                                                                    
+                                                                                    ->load_builtin_dll
+main.c->wine_init->_wine_process_init->load_kernel32->load_dll(_wine_start_process)
+                                                                                    ->load_native_dll->RELAY_SetupDLL->relay_call->relay_trace_entry
+                                                                                                                                 ->call_entry_point
+                                                                                                                                 ->relay_trace_exit
+
+descr->relay_call
+     ->private->data原始的->module->入参原始module
+                          ->base->入参与原始exports->Base
+                          ->entry_points[i].orig_func
+     ->entry_point_base
+
+module+exports->AddressOfFunctions->funcs->func_base
+                                         ->func_size
+
+
+                windows
+    wine server-windows进程核心、枢纽                           wine动态链接库       x server提供界面支持
+    用户控件模拟windows内核--与应用建立socket、pip
+                    (SERVER_START_REQ、SERVER_END_REQ实现client和server通信)
+ 
+ 
+ wine-preloader加载(加载所需的dll和共享库，完成代码的重定位)--->检测wineserver是否运行，没有就启动---->利用socket建立连接(wine/dlls/ntdll/server.c)---->wineserver建立运行一个socket套接字，
+ 等待客户端连接，客户端开始连接--->调用create_process建立一个虚拟的windows进程，作为整个wine的主进程(相当于linux的init进程)
+ ----->然后它创建一个pipe管道，作为客户端和wineserver通信的工具---->然后wineserver进入main_loop()函数---->main_loop主要轮询各个poll队列，去读客户端的请求，并执行相应的服务
