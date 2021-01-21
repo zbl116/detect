@@ -1,1 +1,4 @@
-https://developer.ibm.com/tutorials/l-inotify/
+读取内核反馈上来的事件有2种方式
+(1) 示例种的循环不断的读取event buffer
+(2) 像下面这种，用FD_ZERO\FD_ISSET等读取。
+    https://developer.ibm.com/tutorials/l-inotify/
