@@ -1,3 +1,4 @@
 https://www.cnblogs.com/wenqiang/p/6306727.html
 https://zhuanlan.zhihu.com/p/74555741
 https://bewareofgeek.livejournal.com/2945.html-----监控fork、exit样例
+https://www.cnblogs.com/nf01/articles/10418141.html-----capability说明
